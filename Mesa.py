@@ -5,22 +5,32 @@ from Carta import *
 class Mesa(AbstractMesa):
 
     # Construtor fornecido, nao deve ser alterado
-    def __init__(self, jogador1: Jogador, jogador2: Jogador,
-                 cartaJogador1: Carta, cartaJogador2: Carta):
-        pass  # implementar
+    def __init__(
+        self,
+        jogador1: Jogador,
+        jogador2: Jogador,
+        cartaJogador1: Carta,
+        cartaJogador2: Carta
+    ):
+        self.__jogador1 = (None, jogador1)[isinstance(jogador1, Jogador)]
+        self.__jogador2 = (None, jogador2)[isinstance(jogador2, Jogador)]
+        self.__cartaJogador1 = (None, cartaJogador1)[
+            isinstance(cartaJogador1, Carta)]
+        self.__cartaJogador2 = (None, cartaJogador2)[
+            isinstance(cartaJogador2, Carta)]
 
     @property
     def jogador1(self) -> Jogador:
-        pass  # implementar
+        return self.__jogador1
 
     @property
     def jogador2(self) -> Jogador:
-        pass  # implementar
+        return self.__jogador2
 
     @property
     def carta_jogador1(self) -> Carta:
-        pass  # implementar
+        return self.__cartaJogador1
 
     @property
     def carta_jogador2(self) -> Carta:
-        pass  # implementar
+        return self.__cartaJogador2
