@@ -5,7 +5,8 @@ from Personagem import *
 class Carta(AbstractCarta):
 
     def __init__(self, personagem: Personagem):
-        pass  # implementar
+        self.__personagem = (None, personagem)[
+            isinstance(personagem, Personagem)]
 
     '''
     Soma e retorna todos os valores dos atributos do personagem da Carta
@@ -13,8 +14,14 @@ class Carta(AbstractCarta):
     '''
 
     def valor_total_carta(self) -> int:
-        pass  # implementar
+        return sum([
+            self.personagem.energia,
+            self.personagem.habilidade,
+            self.personagem.resistencia,
+            self.personagem.tipo,
+            self.personagem.velocidade
+        ])
 
     @property
     def personagem(self) -> Personagem:
-        pass  # implementar
+        return self.__personagem
