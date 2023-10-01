@@ -15,7 +15,7 @@ class Personagem(AbstractPersonagem):
         self.__habilidade = (None, habilidade)[isinstance(habilidade, int)]
         self.__velocidade = (None, velocidade)[isinstance(velocidade, int)]
         self.__resistencia = (None, resistencia)[isinstance(resistencia, int)]
-        self.__tipo = (None, tipo)[isinstance(tipo, int)]
+        self.__tipo = (None, tipo)[isinstance(tipo, Tipo)]
 
     @property
     def tipo(self) -> Tipo:
