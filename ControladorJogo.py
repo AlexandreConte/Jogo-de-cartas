@@ -4,7 +4,9 @@ import random
 
 class ControladorJogo(AbstractControladorJogo):
     def __init__(self):
-        pass  # implementar
+        self.__personagens = []
+        self.__baralho = []
+        self.__cartas = []
 
     '''
     Retorna o baralho
@@ -12,7 +14,11 @@ class ControladorJogo(AbstractControladorJogo):
     '''
     @property
     def baralho(self) -> list:
-        pass  # implementar
+        return self.__baralho
+
+    @property
+    def cartas(self) -> list:
+        return self.__cartas
 
     '''
     Retorna a lista de personagems
@@ -20,7 +26,7 @@ class ControladorJogo(AbstractControladorJogo):
     '''
     @property
     def personagems(self) -> list:
-        pass  # implementar
+        return self.__personagens
 
     '''
     Permite incluir um novo Personagem na lista de personagens do jogo
@@ -33,14 +39,30 @@ class ControladorJogo(AbstractControladorJogo):
     @return Retorna o Personagem incluido na lista
     '''
 
-    def inclui_personagem_na_lista(self,
-                                   energia: int,
-                                   habilidade: int,
-                                   velocidade: int,
-                                   resistencia: int,
-                                   tipo: Tipo) -> Personagem:
-        pass  # implementar
-
+    def inclui_personagem_na_lista(
+        self,
+        energia: int,
+        habilidade: int,
+        velocidade: int,
+        resistencia: int,
+        tipo: Tipo
+    ) -> Personagem:
+        if (
+            isinstance(energia, int),
+            isinstance(habilidade, int),
+            isinstance(velocidade, int),
+            isinstance(resistencia, int),
+            isinstance(tipo, Tipo)
+        ):
+            personagem = Personagem(
+                energia=energia,
+                habilidade=habilidade,
+                velocidade=velocidade,
+                resistencia=resistencia,
+                tipo=tipo
+            )
+            self.personagems.append(personagem)
+            return personagem
     '''
     Permite incluir uma nova Carta no baralho do jogo
     @param personagem Personagem da nova carta que sera incluida
@@ -48,7 +70,10 @@ class ControladorJogo(AbstractControladorJogo):
     '''
 
     def inclui_carta_no_baralho(self, personagem: Personagem) -> Carta:
-        pass  # implementar
+        if isinstance(personagem, Personagem):
+            carta = Carta(personagem)
+            self.cartas.append(carta)
+            return carta
 
     '''
     Realiza uma jogada, ou seja:
@@ -75,4 +100,22 @@ class ControladorJogo(AbstractControladorJogo):
     '''
 
     def jogada(self, mesa: Mesa) -> Jogador:
-        pass  # implementar
+        if isinstance(mesa, Mesa):
+            score_carta_jogador1 = mesa.carta_jogador1.valor_total_carta()
+            score_carta_jogador2 = mesa.carta_jogador2.valor_total_carta()
+
+            jogador1 = mesa.jogador1
+            jogador2 = mesa.jogador2
+
+            carta_jogador1 = jogador1.baixa_carta_da_mao()
+            carta_jogador2 = jogador2.baixa_carta_da_mao()
+
+            if (score_carta_jogador1 > score_carta_jogador2):
+                jogador1.inclui_carta_na_mao(carta_jogador1)
+                jogador1.inclui_carta_na_mao(carta_jogador2)
+            elif (score_carta_jogador1 == score_carta_jogador2):
+                jogador1.inclui_carta_na_mao(carta_jogador1)
+                jogador2.inclui_carta_na_mao(carta_jogador2)
+            else:
+                jogador2.inclui_carta_na_mao(carta_jogador2)
+                jogador2.inclui_carta_na_mao(carta_jogador1)
