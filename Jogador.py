@@ -7,14 +7,15 @@ import random
 class Jogador(AbstractJogador):
 
     def __init__(self, nome: str):
-        pass  # implementar
+        self.__nome = (None, nome)[isinstance(nome, str)]
+        self.__mao = []
 
     '''
     @return Retorna o nome do jogador
     '''
     @property
     def nome(self) -> str:
-        pass  # implementar
+        return self.__nome
 
     '''
     Retira uma das cartas do Jogador. Esta operacao eh utilizada para realizar uma jogada (baixar uma carta na mesa)
@@ -23,14 +24,18 @@ class Jogador(AbstractJogador):
     '''
 
     def baixa_carta_da_mao(self) -> Carta:
-        pass  # implementar
+        tamanho_mao = len(self.mao)
+        index = random.randint(0, tamanho_mao)
+        carta = self.mao[index]
+        self.mao.remove(carta)
+        return carta
 
     '''
     @return Retorna a mao atual do jogador (lista das cartas que ele possui)
     '''
     @property
     def mao(self) -> list:
-        pass  # implementar
+        return self.__mao
 
     '''
     Inclui na mao do jogador a carta passada como parametro
@@ -38,4 +43,5 @@ class Jogador(AbstractJogador):
     '''
 
     def inclui_carta_na_mao(self, carta: Carta):
-        pass  # implementar
+        if isinstance(carta, Carta):
+            self.mao.append(carta)
