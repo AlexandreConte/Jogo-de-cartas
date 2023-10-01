@@ -101,21 +101,35 @@ class ControladorJogo(AbstractControladorJogo):
 
     def jogada(self, mesa: Mesa) -> Jogador:
         if isinstance(mesa, Mesa):
-            score_carta_jogador1 = mesa.carta_jogador1.valor_total_carta()
-            score_carta_jogador2 = mesa.carta_jogador2.valor_total_carta()
+            if (
+                isinstance(mesa.carta_jogador1.valor_total_carta(), int),
+                isinstance(mesa.carta_jogador2.valor_total_carta(), int),
+                isinstance(mesa.jogador1, Jogador),
+                isinstance(mesa.jogador2, Jogador),
+            ):
+                score_carta_jogador1 = mesa.carta_jogador1.valor_total_carta()
+                score_carta_jogador2 = mesa.carta_jogador2.valor_total_carta()
 
-            jogador1 = mesa.jogador1
-            jogador2 = mesa.jogador2
+                jogador1 = mesa.jogador1
+                jogador2 = mesa.jogador2
 
-            carta_jogador1 = jogador1.baixa_carta_da_mao()
-            carta_jogador2 = jogador2.baixa_carta_da_mao()
+                carta_jogador1 = jogador1.baixa_carta_da_mao()
+                carta_jogador2 = jogador2.baixa_carta_da_mao()
 
-            if (score_carta_jogador1 > score_carta_jogador2):
-                jogador1.inclui_carta_na_mao(carta_jogador1)
-                jogador1.inclui_carta_na_mao(carta_jogador2)
-            elif (score_carta_jogador1 == score_carta_jogador2):
-                jogador1.inclui_carta_na_mao(carta_jogador1)
-                jogador2.inclui_carta_na_mao(carta_jogador2)
-            else:
-                jogador2.inclui_carta_na_mao(carta_jogador2)
-                jogador2.inclui_carta_na_mao(carta_jogador1)
+                if (
+                    isinstance(carta_jogador1, Carta),
+                    isinstance(carta_jogador2, Carta)
+                ):
+
+                    if (score_carta_jogador1 > score_carta_jogador2):
+                        jogador1.inclui_carta_na_mao(carta_jogador1)
+                        jogador1.inclui_carta_na_mao(carta_jogador2)
+                        return jogador1
+                    elif (score_carta_jogador1 == score_carta_jogador2):
+                        jogador1.inclui_carta_na_mao(carta_jogador1)
+                        jogador2.inclui_carta_na_mao(carta_jogador2)
+                        return None
+                    else:
+                        jogador2.inclui_carta_na_mao(carta_jogador2)
+                        jogador2.inclui_carta_na_mao(carta_jogador1)
+                        return jogador2
