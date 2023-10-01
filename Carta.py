@@ -14,13 +14,18 @@ class Carta(AbstractCarta):
     '''
 
     def valor_total_carta(self) -> int:
-        return sum([
-            self.personagem.energia,
-            self.personagem.habilidade,
-            self.personagem.resistencia,
-            self.personagem.tipo,
-            self.personagem.velocidade
-        ])
+        if (
+            isinstance(self.personagem.energia, int),
+            isinstance(self.personagem.habilidade, int),
+            isinstance(self.personagem.resistencia, int),
+            isinstance(self.personagem.velocidade, int),
+        ):
+            return sum([
+                self.personagem.energia,
+                self.personagem.habilidade,
+                self.personagem.resistencia,
+                self.personagem.velocidade
+            ])
 
     @property
     def personagem(self) -> Personagem:
