@@ -6,7 +6,6 @@ class ControladorJogo(AbstractControladorJogo):
     def __init__(self):
         self.__personagens = []
         self.__baralho = []
-        self.__cartas = []
 
     '''
     Retorna o baralho
@@ -15,10 +14,6 @@ class ControladorJogo(AbstractControladorJogo):
     @property
     def baralho(self) -> list:
         return self.__baralho
-
-    @property
-    def cartas(self) -> list:
-        return self.__cartas
 
     '''
     Retorna a lista de personagems
@@ -72,7 +67,7 @@ class ControladorJogo(AbstractControladorJogo):
     def inclui_carta_no_baralho(self, personagem: Personagem) -> Carta:
         if isinstance(personagem, Personagem):
             carta = Carta(personagem)
-            self.cartas.append(carta)
+            self.baralho.append(carta)
             return carta
 
     '''
