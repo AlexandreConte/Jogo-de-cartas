@@ -25,10 +25,11 @@ class Jogador(AbstractJogador):
 
     def baixa_carta_da_mao(self) -> Carta:
         tamanho_mao = len(self.mao)
-        index = random.randint(0, tamanho_mao)
-        carta = self.mao[index]
-        self.mao.remove(carta)
-        return carta
+        if tamanho_mao > 0:
+            index = random.randint(0, tamanho_mao)
+            carta = self.mao[index]
+            self.mao.remove(carta)
+            return carta
 
     '''
     @return Retorna a mao atual do jogador (lista das cartas que ele possui)
