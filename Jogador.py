@@ -26,7 +26,7 @@ class Jogador(AbstractJogador):
     def baixa_carta_da_mao(self) -> Carta:
         tamanho_mao = len(self.mao)
         if tamanho_mao > 0:
-            index = random.randint(0, tamanho_mao)
+            index = random.randint(0, tamanho_mao - 1)
             carta = self.mao[index]
             self.mao.remove(carta)
             return carta
